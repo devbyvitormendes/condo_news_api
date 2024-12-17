@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: condo-news
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/condonews
+
+server:
+  port: 8989
+  servlet:
+    context-path: /api

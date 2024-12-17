@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "condos")
+@Document(collection = "condo")
 public class Condo {
 
     @Id
