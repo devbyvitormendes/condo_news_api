@@ -19,31 +19,31 @@ public class ResidentController implements ResidentApi {
     @Override
     @GetMapping
     public List<ResidentDto> getResident() {
-        return List.of();
+        return residentService.findAllResidents();
     }
 
     @Override
     @GetMapping("/{id}")
     public ResidentDto getResident(@PathVariable UUID id) {
-        return null;
+        return residentService.findResidentById(id);
     }
 
     @Override
     @PostMapping
     public void createResident(@RequestBody ResidentDto resident) {
-
+        residentService.createResident(resident);
     }
 
     @Override
     @PutMapping
     public ResidentDto updateResident(@RequestBody ResidentDto resident) {
-        return null;
+        return residentService.updateResident(resident);
     }
 
     @Override
     @DeleteMapping("/{id}")
     public void deleteResident(UUID id) {
-
+        residentService.deleteResident(id);
     }
 }
 

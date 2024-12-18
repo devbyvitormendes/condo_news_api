@@ -19,53 +19,37 @@ public class NewsController implements NewsApi {
     @Override
     @GetMapping
     public List<NewsDto> getNews() {
-        return List.of(
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID())
-        );
+        return newsService.findAll();
     }
 
     @Override
     @GetMapping("/{id}")
     public NewsDto getNews(@PathVariable UUID id) {
-        return null;
+        return newsService.findNewsById(id);
     }
 
     @Override
     @GetMapping("/breaking")
     public List<NewsDto> getBreakingNews() {
-        return List.of(
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID()),
-                new NewsDto(UUID.randomUUID(), "title", "content", "imageBase64", "date", true, UUID.randomUUID())
-        );
+        return newsService.findAllBreakingNews();
     }
 
     @Override
     @PostMapping
-    public void createNews(@RequestBody NewsDto customer) {
-
+    public void createNews(@RequestBody NewsDto news) {
+        newsService.createNews(news);
     }
 
     @Override
     @PutMapping
-    public NewsDto updateNews(@RequestBody NewsDto customer) {
-        return null;
+    public NewsDto updateNews(@RequestBody NewsDto news) {
+        return newsService.updateNews(news);
     }
 
     @Override
     @DeleteMapping("/{id}")
     public void deleteNews(UUID id) {
-
+        newsService.deleteNews(id);
     }
 }
 

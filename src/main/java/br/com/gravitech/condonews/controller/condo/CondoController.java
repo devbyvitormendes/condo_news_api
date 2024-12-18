@@ -26,7 +26,7 @@ public class CondoController implements CondoApi {
     @Override
     @GetMapping("/{id}")
     public CondoDto getCondo(@PathVariable UUID id) {
-        return null;
+        return condoService.findCondoById(id);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class CondoController implements CondoApi {
     @Override
     @PutMapping
     public CondoDto updateCondo(@RequestBody CondoDto condo) {
-        return null;
+        return condoService.updateCondo(condo);
     }
 
     @Override
     @DeleteMapping("/{id}")
     public void deleteCondo(@PathVariable UUID id) {
-
+        condoService.deleteCondo(id);
     }
 }
 

@@ -4,6 +4,9 @@ import br.com.gravitech.condonews.domain.News;
 import br.com.gravitech.condonews.dto.NewsDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {UtilMapper.class})
 public abstract class NewsMapper {
@@ -12,4 +15,8 @@ public abstract class NewsMapper {
     public abstract News toEntity(NewsDto dto);
 
     public abstract NewsDto toDto(News entity);
+
+    public abstract void merge(NewsDto dto, @MappingTarget News entity);
+
+    public abstract List<NewsDto> toDtoList(List<News> entityList);
 }
