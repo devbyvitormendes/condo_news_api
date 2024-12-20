@@ -3,6 +3,7 @@ package br.com.gravitech.condonews.controller.news;
 import br.com.gravitech.condonews.dto.NewsDto;
 import br.com.gravitech.condonews.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
-@RequestMapping("/v1/news")
+@RequestMapping(value = "/v1/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController implements NewsApi {
 
     private final NewsService newsService;
@@ -36,8 +37,8 @@ public class NewsController implements NewsApi {
 
     @Override
     @PostMapping
-    public void createNews(@RequestBody NewsDto news) {
-        newsService.createNews(news);
+    public NewsDto createNews(@RequestBody NewsDto news) {
+       return newsService.createNews(news);
     }
 
     @Override

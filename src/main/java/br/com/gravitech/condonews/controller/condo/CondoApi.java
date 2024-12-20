@@ -20,7 +20,7 @@ public interface CondoApi {
     CondoDto getCondo(@Parameter(description = "Condo's UUID", required = true) @PathVariable UUID id);
 
     @Operation(summary = "Create Condo", description = "Create a new Condo in database.")
-    void createCondo(@RequestBody CondoDto condo);
+    CondoDto createCondo(@RequestBody CondoDto condo);
 
     @Operation(summary = "Update Condo", description = "Update Condo data in database.")
     CondoDto updateCondo(@Parameter(description = "Condo data", required = true) @RequestBody CondoDto condo);

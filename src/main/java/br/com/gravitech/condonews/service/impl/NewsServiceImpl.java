@@ -37,8 +37,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public void createNews(NewsDto news) {
-        newsRepository.save(newsMapper.toEntity(news));
+    public NewsDto createNews(NewsDto news) {
+        News savedNews = newsRepository.save(newsMapper.toEntity(news));
+        return newsMapper.toDto(savedNews);
     }
 
     @Override

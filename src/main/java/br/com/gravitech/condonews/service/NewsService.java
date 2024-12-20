@@ -12,7 +12,7 @@ public interface NewsService {
 
     List<NewsDto> findAllBreakingNews();
 
-    void createNews(NewsDto news);
+    NewsDto createNews(NewsDto news);
 
     NewsDto updateNews(NewsDto news);
 

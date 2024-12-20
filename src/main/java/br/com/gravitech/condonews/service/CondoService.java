@@ -10,7 +10,7 @@ public interface CondoService {
 
     CondoDto findCondoById(UUID id);
 
-    void createCondo(CondoDto condo);
+    CondoDto createCondo(CondoDto condo);
 
     CondoDto updateCondo(CondoDto condo);
 

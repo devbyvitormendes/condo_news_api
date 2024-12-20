@@ -23,7 +23,7 @@ public interface NewsApi {
     List<NewsDto> getBreakingNews();
 
     @Operation(summary = "Create News", description = "Create a new News in database.")
-    void createNews(@RequestBody NewsDto news);
+    NewsDto createNews(@RequestBody NewsDto news);
 
     @Operation(summary = "Update News", description = "Update News data in database.")
     NewsDto updateNews(@Parameter(description = "News data", required = true) @RequestBody NewsDto news);

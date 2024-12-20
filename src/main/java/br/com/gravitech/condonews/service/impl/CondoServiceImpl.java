@@ -32,8 +32,9 @@ public class CondoServiceImpl implements CondoService {
 
     @Override
     @Transactional
-    public void createCondo(CondoDto condo) {
-        condoRepository.save(condoMapper.toEntity(condo));
+    public CondoDto createCondo(CondoDto condo) {
+        Condo savedCondo = condoRepository.save(condoMapper.toEntity(condo));
+        return condoMapper.toDto(savedCondo);
     }
 
     @Override

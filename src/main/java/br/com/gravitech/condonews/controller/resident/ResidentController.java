@@ -3,6 +3,7 @@ package br.com.gravitech.condonews.controller.resident;
 import br.com.gravitech.condonews.dto.ResidentDto;
 import br.com.gravitech.condonews.service.ResidentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
-@RequestMapping("/v1/resident")
+@RequestMapping(value = "/v1/resident", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ResidentController implements ResidentApi {
 
     private final ResidentService residentService;
@@ -30,8 +31,8 @@ public class ResidentController implements ResidentApi {
 
     @Override
     @PostMapping
-    public void createResident(@RequestBody ResidentDto resident) {
-        residentService.createResident(resident);
+    public ResidentDto createResident(@RequestBody ResidentDto resident) {
+        return residentService.createResident(resident);
     }
 
     @Override

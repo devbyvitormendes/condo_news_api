@@ -10,7 +10,7 @@ public interface ResidentService {
 
     ResidentDto findResidentById(UUID id);
 
-    void createResident(ResidentDto resident);
+    ResidentDto createResident(ResidentDto resident);
 
     ResidentDto updateResident(ResidentDto resident);
 

@@ -9,3 +9,7 @@ server:
   port: 8989
   servlet:
     context-path: /api
+
+jwt:
+  secret: secret
+  expiration: 360000

@@ -12,14 +12,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResidentDto implements Serializable {
+public class UserDto implements Serializable {
 
     private UUID id;
-    private String name;
+    private String userName;
     private String email;
-    private String cpf;
-    private String phone;
-    private String apartment;
-    private UUID idCondo;
-
+    private String password;
+    private boolean isEnabled;
 }

@@ -13,16 +13,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "resident")
-public class Resident {
+@Document(collection = "user")
+public class User {
 
     @Id
     private UUID id;
-    private String name;
+    private String userName;
     private String email;
-    private String cpf;
-    private String phone;
-    private String apartment;
-    private UUID idCondo;
-
+    private String password;
+    private boolean isEnabled;
 }

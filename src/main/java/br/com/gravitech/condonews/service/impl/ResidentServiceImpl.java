@@ -30,8 +30,9 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public void createResident(ResidentDto resident) {
-        residentRepository.save(residentMapper.toEntity(resident));
+    public ResidentDto createResident(ResidentDto resident) {
+        Resident savedResident = residentRepository.save(residentMapper.toEntity(resident));
+        return residentMapper.toDto(savedResident);
     }
 
     @Override

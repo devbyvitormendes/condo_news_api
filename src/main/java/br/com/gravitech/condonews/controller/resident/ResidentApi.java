@@ -20,7 +20,7 @@ public interface ResidentApi {
     ResidentDto getResident(@Parameter(description = "Resident's UUID", required = true) @PathVariable UUID id);
 
     @Operation(summary = "Create Resident", description = "Create a new Resident in database.")
-    void createResident(@RequestBody ResidentDto resident);
+    ResidentDto createResident(@RequestBody ResidentDto resident);
 
     @Operation(summary = "Update Resident", description = "Update Resident data in database.")
     ResidentDto updateResident(@Parameter(description = "Resident data", required = true) @RequestBody ResidentDto resident);
