@@ -18,7 +18,7 @@ public class User {
 
     @Id
     private UUID id;
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private boolean isEnabled;

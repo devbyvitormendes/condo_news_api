@@ -3,6 +3,8 @@ package br.com.gravitech.condonews.controller.auth;
 import br.com.gravitech.condonews.domain.auth.AuthenticationRequest;
 import br.com.gravitech.condonews.domain.auth.AuthenticationResponse;
 import br.com.gravitech.condonews.dto.CondoDto;
+import br.com.gravitech.condonews.dto.auth.AuthRequestDto;
+import br.com.gravitech.condonews.dto.auth.AuthResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +18,6 @@ import java.util.UUID;
 public interface AuthApi {
 
     @Operation(summary = "Create Token", description = "Create a JWT Token.")
-    AuthenticationResponse createToken(@RequestBody AuthenticationRequest request);
+    AuthResponseDto createToken(@RequestBody AuthRequestDto request);
 
 }
