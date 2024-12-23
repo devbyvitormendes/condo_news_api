@@ -6,7 +6,7 @@ spring:
       uri: mongodb://localhost:27017/condonews
 
 server:
-  port: 8989
+  port: 8686
   servlet:
     context-path: /api
 
