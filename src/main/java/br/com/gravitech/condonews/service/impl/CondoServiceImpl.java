@@ -2,15 +2,17 @@ package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.Condo;
 import br.com.gravitech.condonews.dto.CondoDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.condo.CondoNotFoundException;
 import br.com.gravitech.condonews.mapper.CondoMapper;
+import br.com.gravitech.condonews.mapper.PageMapper;
 import br.com.gravitech.condonews.repository.CondoRepository;
 import br.com.gravitech.condonews.service.CondoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,11 +20,12 @@ import java.util.UUID;
 public class CondoServiceImpl implements CondoService {
 
     private final CondoMapper condoMapper;
+    private final PageMapper pageMapper;
     private final CondoRepository condoRepository;
 
     @Override
-    public List<CondoDto> findAllCondos() {
-        return condoMapper.toDtoList(condoRepository.findAll());
+    public PageResponseDto findAllCondos(Pageable pageable) {
+        return pageMapper.toResponseDto(condoRepository.findAll(pageable));
     }
 
     @Override

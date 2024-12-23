@@ -5,6 +5,7 @@ import br.com.gravitech.condonews.domain.auth.AuthenticationRequest;
 import br.com.gravitech.condonews.domain.auth.AuthenticationResponse;
 import br.com.gravitech.condonews.dto.auth.AuthRequestDto;
 import br.com.gravitech.condonews.dto.auth.AuthResponseDto;
+import br.com.gravitech.condonews.dto.auth.RefreshRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,9 +24,13 @@ public class AuthController implements AuthApi {
     @PostMapping(value = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
     public AuthResponseDto createToken(@RequestBody AuthRequestDto request) {
         userDetailsService.loadUserByUsername(request.username());
-        String jwtToken = jwtUtil.generateToken(request.username());
+        return jwtUtil.getToken(request.username());
+    }
 
-        return new AuthResponseDto(jwtToken, "");
+    @Override
+    @PostMapping(value = "/refresh-token", produces = MediaType.APPLICATION_JSON_VALUE)
+    public AuthResponseDto refreshToken(RefreshRequestDto request) {
+        return null;
     }
 }
 

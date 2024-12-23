@@ -1,9 +1,11 @@
 package br.com.gravitech.condonews.controller.resident;
 
 import br.com.gravitech.condonews.dto.ResidentDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,7 +16,7 @@ import java.util.UUID;
 public interface ResidentApi {
 
     @Operation(summary = "Get Residents", description = "Get a list of all Residents.")
-    List<ResidentDto> getResident();
+    PageResponseDto getResidents(Pageable pageable);
 
     @Operation(summary = "Get Resident by ID", description = "Get a Resident by UUID.")
     ResidentDto getResident(@Parameter(description = "Resident's UUID", required = true) @PathVariable UUID id);

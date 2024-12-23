@@ -1,12 +1,13 @@
 package br.com.gravitech.condonews.service;
 
 import br.com.gravitech.condonews.dto.UserDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-    List<UserDto> findAllUsers();
+    PageResponseDto findAllUsers(Pageable pageable);
 
     UserDto findUserById(UUID id);
 

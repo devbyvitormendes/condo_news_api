@@ -2,14 +2,16 @@ package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.User;
 import br.com.gravitech.condonews.dto.UserDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.user.UserNotFoundException;
+import br.com.gravitech.condonews.mapper.PageMapper;
 import br.com.gravitech.condonews.mapper.UserMapper;
 import br.com.gravitech.condonews.repository.UserRepository;
 import br.com.gravitech.condonews.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -17,12 +19,13 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final PageMapper pageMapper;
     private final UserRepository userRepository;
 
 
     @Override
-    public List<UserDto> findAllUsers() {
-        return userMapper.toDtoList(userRepository.findAll());
+    public PageResponseDto findAllUsers(Pageable pageable) {
+        return pageMapper.toResponseDto(userRepository.findAll(pageable));
     }
 
     @Override

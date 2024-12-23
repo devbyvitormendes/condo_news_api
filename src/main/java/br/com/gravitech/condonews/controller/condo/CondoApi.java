@@ -1,9 +1,11 @@
 package br.com.gravitech.condonews.controller.condo;
 
 import br.com.gravitech.condonews.dto.CondoDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,7 +16,7 @@ import java.util.UUID;
 public interface CondoApi {
 
     @Operation(summary = "Get Condos", description = "Get a list of all Condos.")
-    List<CondoDto> getCondo();
+    PageResponseDto getCondos(Pageable pageable);
 
     @Operation(summary = "Get Condo by ID", description = "Get a Condo by UUID.")
     CondoDto getCondo(@Parameter(description = "Condo's UUID", required = true) @PathVariable UUID id);

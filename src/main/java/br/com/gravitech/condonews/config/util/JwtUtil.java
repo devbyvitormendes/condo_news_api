@@ -1,5 +1,7 @@
 package br.com.gravitech.condonews.config.util;
 
+import br.com.gravitech.condonews.dto.auth.AuthResponseDto;
+import br.com.gravitech.condonews.exception.base.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -19,6 +22,17 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
+    @Value("${jwt.expiration-refresh}")
+    private long expirationRefresh;
+
+    public AuthResponseDto getToken(String username) {
+        if (Objects.nonNull(username)) {
+            return new AuthResponseDto(generateToken(username), generateRefreshToken(username));
+        } else {
+            throw new UnauthorizedException();
+        }
+    }
+
     public String generateToken(String username) {
         log.info("Generating token for user {}", username);
         return Jwts.builder()
@@ -27,6 +41,7 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+
     }
 
     public Claims extractClaims(String token) {
@@ -46,5 +61,15 @@ public class JwtUtil {
 
     public boolean isTokenValid(String token, String username) {
         return (username.equals(extractUserName(token)) && !isTokenExpired(token));
+    }
+
+    public String generateRefreshToken(String username) {
+        log.info("Generating refresh token for user {}", username);
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationRefresh))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 }

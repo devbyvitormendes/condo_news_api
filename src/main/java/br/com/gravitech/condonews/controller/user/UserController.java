@@ -1,8 +1,10 @@
 package br.com.gravitech.condonews.controller.user;
 
 import br.com.gravitech.condonews.dto.UserDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,8 @@ public class UserController implements UserApi {
 
     @Override
     @GetMapping
-    public List<UserDto> getUsers() {
-        return userService.findAllUsers();
+    public PageResponseDto getUsers(Pageable pageable) {
+        return userService.findAllUsers(pageable);
     }
 
     @Override

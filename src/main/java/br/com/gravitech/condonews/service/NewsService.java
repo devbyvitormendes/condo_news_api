@@ -1,16 +1,17 @@
 package br.com.gravitech.condonews.service;
 
 import br.com.gravitech.condonews.dto.NewsDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface NewsService {
-    List<NewsDto> findAll();
+    PageResponseDto findAllNews(Pageable pageable);
 
     NewsDto findNewsById(UUID id);
 
-    List<NewsDto> findAllBreakingNews();
+    PageResponseDto findAllBreakingNews(Pageable pageable);
 
     NewsDto createNews(NewsDto news);
 

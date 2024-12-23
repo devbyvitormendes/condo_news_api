@@ -1,8 +1,10 @@
 package br.com.gravitech.condonews.controller.resident;
 
 import br.com.gravitech.condonews.dto.ResidentDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.service.ResidentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,8 @@ public class ResidentController implements ResidentApi {
 
     @Override
     @GetMapping
-    public List<ResidentDto> getResident() {
-        return residentService.findAllResidents();
+    public PageResponseDto getResidents(Pageable pageable) {
+        return residentService.findAllResidents(pageable);
     }
 
     @Override

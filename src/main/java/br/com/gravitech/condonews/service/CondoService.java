@@ -1,12 +1,13 @@
 package br.com.gravitech.condonews.service;
 
 import br.com.gravitech.condonews.dto.CondoDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface CondoService {
-    List<CondoDto> findAllCondos();
+    PageResponseDto findAllCondos(Pageable pageable);
 
     CondoDto findCondoById(UUID id);
 

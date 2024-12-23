@@ -1,8 +1,10 @@
 package br.com.gravitech.condonews.controller.condo;
 
 import br.com.gravitech.condonews.dto.CondoDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.service.CondoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,8 @@ public class CondoController implements CondoApi {
 
     @Override
     @GetMapping
-    public List<CondoDto> getCondo() {
-        return condoService.findAllCondos();
+    public PageResponseDto getCondos(Pageable pageable) {
+        return condoService.findAllCondos(pageable);
     }
 
     @Override

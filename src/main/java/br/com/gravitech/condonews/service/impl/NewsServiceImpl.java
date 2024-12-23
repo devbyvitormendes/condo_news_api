@@ -2,15 +2,17 @@ package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.News;
 import br.com.gravitech.condonews.dto.NewsDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.news.NewsNotFoundException;
 import br.com.gravitech.condonews.mapper.NewsMapper;
+import br.com.gravitech.condonews.mapper.PageMapper;
 import br.com.gravitech.condonews.repository.NewsRepository;
 import br.com.gravitech.condonews.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,11 +20,12 @@ import java.util.UUID;
 public class NewsServiceImpl implements NewsService {
 
     private final NewsMapper newsMapper;
+    private final PageMapper pageMapper;
     private final NewsRepository newsRepository;
 
     @Override
-    public List<NewsDto> findAll() {
-        return newsMapper.toDtoList(newsRepository.findAll());
+    public PageResponseDto findAllNews(Pageable pageable) {
+        return pageMapper.toResponseDto(newsRepository.findAll(pageable));
     }
 
     @Override
@@ -31,8 +34,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<NewsDto> findAllBreakingNews() {
-        return newsMapper.toDtoList(newsRepository.findByBreakingIsTrue());
+    public PageResponseDto findAllBreakingNews(Pageable pageable) {
+        return pageMapper.toResponseDto(newsRepository.findByBreakingIsTrue(pageable));
     }
 
     @Override

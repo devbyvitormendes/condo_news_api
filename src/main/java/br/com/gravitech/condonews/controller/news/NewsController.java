@@ -1,12 +1,13 @@
 package br.com.gravitech.condonews.controller.news;
 
 import br.com.gravitech.condonews.dto.NewsDto;
+import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,8 +20,8 @@ public class NewsController implements NewsApi {
 
     @Override
     @GetMapping
-    public List<NewsDto> getNews() {
-        return newsService.findAll();
+    public PageResponseDto getNews(Pageable pageable) {
+        return newsService.findAllNews(pageable);
     }
 
     @Override
@@ -31,8 +32,8 @@ public class NewsController implements NewsApi {
 
     @Override
     @GetMapping("/breaking")
-    public List<NewsDto> getBreakingNews() {
-        return newsService.findAllBreakingNews();
+    public PageResponseDto getBreakingNews(Pageable pageable) {
+        return newsService.findAllBreakingNews(pageable);
     }
 
     @Override
