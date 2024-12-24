@@ -12,5 +12,5 @@ server:
 
 jwt:
   secret: secret
-  expiration: 360000
+  expiration: 60000
   expiration-refresh: 86400000

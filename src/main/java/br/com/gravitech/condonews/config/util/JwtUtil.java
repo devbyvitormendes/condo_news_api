@@ -1,8 +1,9 @@
 package br.com.gravitech.condonews.config.util;
 
 import br.com.gravitech.condonews.dto.auth.AuthResponseDto;
-import br.com.gravitech.condonews.exception.base.UnauthorizedException;
+import br.com.gravitech.condonews.exception.base.ForbiddenException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class JwtUtil {
         if (Objects.nonNull(username)) {
             return new AuthResponseDto(generateToken(username), generateRefreshToken(username));
         } else {
-            throw new UnauthorizedException();
+            throw new ForbiddenException();
         }
     }
 
@@ -45,10 +46,18 @@ public class JwtUtil {
     }
 
     public Claims extractClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            log.error("[ERROR] Expired token: {}", e.getMessage());
+            throw new ForbiddenException();
+        } catch (Exception e) {
+            log.error("[ERROR]Unknown error: {}", e.getMessage());
+            throw new ForbiddenException();
+        }
     }
 
     public String extractUserName(String token) {

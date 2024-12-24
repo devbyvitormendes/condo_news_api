@@ -1,7 +1,7 @@
 package br.com.gravitech.condonews.config.filter;
 
 import br.com.gravitech.condonews.config.util.JwtUtil;
-import br.com.gravitech.condonews.exception.base.UnauthorizedException;
+import br.com.gravitech.condonews.exception.base.ForbiddenException;
 import br.com.gravitech.condonews.service.impl.auth.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -56,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
-                throw new UnauthorizedException();
+                throw new ForbiddenException();
             }
         }
 

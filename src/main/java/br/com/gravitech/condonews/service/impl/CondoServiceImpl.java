@@ -9,12 +9,14 @@ import br.com.gravitech.condonews.mapper.PageMapper;
 import br.com.gravitech.condonews.repository.CondoRepository;
 import br.com.gravitech.condonews.service.CondoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CondoServiceImpl implements CondoService {
@@ -25,17 +27,20 @@ public class CondoServiceImpl implements CondoService {
 
     @Override
     public PageResponseDto findAllCondos(Pageable pageable) {
+        log.info("Starting findAllCondos method {}", pageable);
         return pageMapper.toResponseDto(condoRepository.findAll(pageable));
     }
 
     @Override
     public CondoDto findCondoById(UUID id) {
+        log.info("Starting findCondoById method {}", id);
         return condoMapper.toDto(condoRepository.findById(id).orElseThrow(CondoNotFoundException::new));
     }
 
     @Override
     @Transactional
     public CondoDto createCondo(CondoDto condo) {
+        log.info("Starting createCondo method {}", condo);
         Condo savedCondo = condoRepository.save(condoMapper.toEntity(condo));
         return condoMapper.toDto(savedCondo);
     }
@@ -43,6 +48,7 @@ public class CondoServiceImpl implements CondoService {
     @Override
     @Transactional
     public CondoDto updateCondo(CondoDto condo) {
+        log.info("Starting updateCondo method {}", condo);
         Condo entity = condoRepository.findById(condo.getId()).orElseThrow(CondoNotFoundException::new);
         condoMapper.merge(condo, entity);
         return null;
@@ -51,6 +57,7 @@ public class CondoServiceImpl implements CondoService {
     @Override
     @Transactional
     public void deleteCondo(UUID id) {
+        log.info("Starting deleteCondo method {}", id);
         CondoDto condo = findCondoById(id);
         condoRepository.deleteById(condo.getId());
     }
