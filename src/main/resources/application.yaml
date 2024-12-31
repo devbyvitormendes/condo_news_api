@@ -11,6 +11,6 @@ server:
     context-path: /api
 
 jwt:
-  secret: secret
+  secret: 795351ff5bec966e4710d24ce22d6304
   expiration: 60000
   expiration-refresh: 86400000

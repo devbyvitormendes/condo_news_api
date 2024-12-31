@@ -46,7 +46,7 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public ResidentDto updateResident(ResidentDto resident) {
         log.info("Starting updateResident method {}", resident);
-        Resident entity = residentRepository.findById(resident.getId()).orElseThrow(ResidentNotFoundException::new);
+        Resident entity = residentRepository.findById(resident.id()).orElseThrow(ResidentNotFoundException::new);
         residentMapper.merge(resident, entity);
         return residentMapper.toDto(residentRepository.save(entity));
     }
@@ -55,6 +55,6 @@ public class ResidentServiceImpl implements ResidentService {
     public void deleteResident(UUID id) {
         log.info("Starting deleteResident method {}", id);
         ResidentDto resident = findResidentById(id);
-        residentRepository.deleteById(resident.getId());
+        residentRepository.deleteById(resident.id());
     }
 }

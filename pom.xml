@@ -40,6 +40,7 @@
 		<springdoc.version>2.3.0</springdoc.version>
 		<jsonwebtoken.version>0.9.1</jsonwebtoken.version>
 		<jaxb.version>2.3.1</jaxb.version>
+		<javajwt.version>4.4.0</javajwt.version>
 	</properties>
 
 	<dependencies>
@@ -76,21 +77,10 @@
 			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>${jsonwebtoken.version}</version>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${javajwt.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>${jaxb.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jaxb</groupId>
-			<artifactId>jaxb-runtime</artifactId>
-			<version>${jaxb.version}</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>

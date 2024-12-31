@@ -55,7 +55,7 @@ public class NewsServiceImpl implements NewsService {
     @Transactional
     public NewsDto updateNews(NewsDto news) {
         log.info("Starting updateNews method {}", news);
-        News entity = newsRepository.findById(news.getId()).orElseThrow(NewsNotFoundException::new);
+        News entity = newsRepository.findById(news.id()).orElseThrow(NewsNotFoundException::new);
         newsMapper.merge(news, entity);
         return newsMapper.toDto(newsRepository.save(entity));
     }
@@ -65,6 +65,6 @@ public class NewsServiceImpl implements NewsService {
     public void deleteNews(UUID id) {
         log.info("Starting deleteNews method {}", id);
         NewsDto news = findNewsById(id);
-        newsRepository.deleteById(news.getId());
+        newsRepository.deleteById(news.id());
     }
 }

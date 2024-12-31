@@ -1,7 +1,6 @@
-package br.com.gravitech.condonews.service.impl.auth;
+package br.com.gravitech.condonews.config.security;
 
 import br.com.gravitech.condonews.domain.User;
-import br.com.gravitech.condonews.repository.ResidentRepository;
 import br.com.gravitech.condonews.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), user.isEnabled(), true, true, true, new ArrayList<>());
+                user.getPassword(), user.isActive(), true, true, true, new ArrayList<>());
     }
 }

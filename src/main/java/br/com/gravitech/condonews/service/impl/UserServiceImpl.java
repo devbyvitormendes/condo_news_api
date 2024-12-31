@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        log.info("Starting findByUsername method {}", username);
+        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
     public UserDto createUser(UserDto user) {
         log.info("Starting createUser method {}", user);
         User savedUser = userRepository.save(userMapper.toEntity(user));
@@ -47,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto user) {
         log.info("Starting updateUser method {}", user);
-        User entity = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
+        User entity = userRepository.findById(user.id()).orElseThrow(UserNotFoundException::new);
         userMapper.merge(user, entity);
         return userMapper.toDto(userRepository.save(entity));
     }
@@ -56,6 +62,6 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(UUID id) {
         log.info("Starting deleteUser method {}", id);
         UserDto user = findUserById(id);
-        userRepository.deleteById(user.getId());
+        userRepository.deleteById(user.id());
     }
 }

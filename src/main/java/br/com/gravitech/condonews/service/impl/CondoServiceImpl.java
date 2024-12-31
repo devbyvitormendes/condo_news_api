@@ -49,7 +49,7 @@ public class CondoServiceImpl implements CondoService {
     @Transactional
     public CondoDto updateCondo(CondoDto condo) {
         log.info("Starting updateCondo method {}", condo);
-        Condo entity = condoRepository.findById(condo.getId()).orElseThrow(CondoNotFoundException::new);
+        Condo entity = condoRepository.findById(condo.id()).orElseThrow(CondoNotFoundException::new);
         condoMapper.merge(condo, entity);
         return null;
     }
@@ -59,6 +59,6 @@ public class CondoServiceImpl implements CondoService {
     public void deleteCondo(UUID id) {
         log.info("Starting deleteCondo method {}", id);
         CondoDto condo = findCondoById(id);
-        condoRepository.deleteById(condo.getId());
+        condoRepository.deleteById(condo.id());
     }
 }
