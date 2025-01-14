@@ -20,7 +20,9 @@ public class Condo {
     @Id
     private UUID id;
     private String name;
-    private List<Resident> residents;
-    private List<News> news;
+    private String address;
+    private String city;
+    private String state;
+    private String zipCode;
 
 }
