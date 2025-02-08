@@ -51,7 +51,7 @@ public class CondoServiceImpl implements CondoService {
         log.info("Starting updateCondo method {}", condo);
         Condo entity = condoRepository.findById(condo.id()).orElseThrow(CondoNotFoundException::new);
         condoMapper.merge(condo, entity);
-        return null;
+        return condoMapper.toDto(condoRepository.save(entity));
     }
 
     @Override

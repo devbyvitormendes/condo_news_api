@@ -1,30 +1,25 @@
 package br.com.gravitech.condonews.domain;
 
+import br.com.gravitech.condonews.domain.enums.ContactTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "condo")
-public class Condo {
+@Document(collection = "contacts")
+public class Contact {
 
-    @Id
     private UUID id;
     private String name;
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
-    private List<Contact> contacts;
-    private String condoPhone;
-    private String condoEmail;
+    private String email;
+    private String phone;
+    private ContactTypeEnum type;
+    private UUID idCondo;
 }
