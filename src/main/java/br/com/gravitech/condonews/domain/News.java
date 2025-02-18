@@ -22,6 +22,7 @@ public class News {
     private String content;
     private String image;
     private String date;
+    private String updatedAt;
     private boolean breaking;
     private UUID idCondo;
 }

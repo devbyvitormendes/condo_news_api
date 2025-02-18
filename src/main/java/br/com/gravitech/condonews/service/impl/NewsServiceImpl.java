@@ -46,7 +46,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional
     public NewsDto createNews(NewsDto news) {
-        log.info("Starting createNews method {}", news);
+        log.info("Starting createNews method {}", news.title());
         News savedNews = newsRepository.save(newsMapper.toEntity(news));
         return newsMapper.toDto(savedNews);
     }
@@ -54,7 +54,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional
     public NewsDto updateNews(NewsDto news) {
-        log.info("Starting updateNews method {}", news);
+        log.info("Starting updateNews method {}", news.id());
         News entity = newsRepository.findById(news.id()).orElseThrow(NewsNotFoundException::new);
         newsMapper.merge(news, entity);
         return newsMapper.toDto(newsRepository.save(entity));
