@@ -1,6 +1,7 @@
 package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.Condo;
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import br.com.gravitech.condonews.dto.CondoDto;
 import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.condo.CondoNotFoundException;
@@ -27,38 +28,47 @@ public class CondoServiceImpl implements CondoService {
 
     @Override
     public PageResponseDto findAllCondos(Pageable pageable) {
-        log.info("Starting findAllCondos method {}", pageable);
-        return pageMapper.toResponseDto(condoRepository.findAll(pageable));
+        log.info(StringConstants.Log.STARTING_METHOD, "findAllCondos");
+        var result = pageMapper.toResponseDto(condoRepository.findAll(pageable));
+        log.info(StringConstants.Log.ENDING_METHOD, "findAllCondos");
+        return result;
     }
 
     @Override
     public CondoDto findCondoById(UUID id) {
-        log.info("Starting findCondoById method {}", id);
-        return condoMapper.toDto(condoRepository.findById(id).orElseThrow(CondoNotFoundException::new));
+        log.info(StringConstants.Log.Condo.FINDING_CONDO, id);
+        var result = condoMapper.toDto(condoRepository.findById(id).orElseThrow(CondoNotFoundException::new));
+        log.info(StringConstants.Log.ENDING_METHOD, "findCondoById");
+        return result;
     }
 
     @Override
     @Transactional
     public CondoDto createCondo(CondoDto condo) {
-        log.info("Starting createCondo method {}", condo);
+        log.info(StringConstants.Log.Condo.CREATING_CONDO, condo.name());
         Condo savedCondo = condoRepository.save(condoMapper.toEntity(condo));
-        return condoMapper.toDto(savedCondo);
+        var result = condoMapper.toDto(savedCondo);
+        log.info(StringConstants.Log.ENDING_METHOD, "createCondo");
+        return result;
     }
 
     @Override
     @Transactional
     public CondoDto updateCondo(CondoDto condo) {
-        log.info("Starting updateCondo method {}", condo.id());
+        log.info(StringConstants.Log.Condo.UPDATING_CONDO, condo.id());
         Condo entity = condoRepository.findById(condo.id()).orElseThrow(CondoNotFoundException::new);
         condoMapper.merge(condo, entity);
-        return condoMapper.toDto(condoRepository.save(entity));
+        var result = condoMapper.toDto(condoRepository.save(entity));
+        log.info(StringConstants.Log.ENDING_METHOD, "updateCondo");
+        return result;
     }
 
     @Override
     @Transactional
     public void deleteCondo(UUID id) {
-        log.info("Starting deleteCondo method {}", id);
+        log.info(StringConstants.Log.Condo.DELETING_CONDO, id);
         CondoDto condo = findCondoById(id);
         condoRepository.deleteById(condo.id());
+        log.info(StringConstants.Log.ENDING_METHOD, "deleteCondo");
     }
 }

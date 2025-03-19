@@ -1,5 +1,6 @@
 package br.com.gravitech.condonews.exception.base;
 
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,6 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BadRequestException extends RuntimeException {
 
     public BadRequestException() {
-        super("Requisição com dados inválidos.");
+        super(StringConstants.Exception.BAD_REQUEST);
+    }
+
+    public BadRequestException(String message) {
+        super(message);
     }
 }

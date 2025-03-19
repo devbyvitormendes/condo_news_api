@@ -1,5 +1,6 @@
 package br.com.gravitech.condonews.exception.resident;
 
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ResidentNotFoundException extends RuntimeException {
 
     public ResidentNotFoundException() {
-        super("Morador não encontrado.");
+        super(StringConstants.Exception.RESIDENT_NOT_FOUND);
     }
 }

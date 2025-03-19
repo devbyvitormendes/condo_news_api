@@ -1,6 +1,7 @@
 package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.Resident;
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import br.com.gravitech.condonews.dto.ResidentDto;
 import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.resident.ResidentNotFoundException;
@@ -26,35 +27,44 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public PageResponseDto findAllResidents(Pageable pageable) {
-        log.info("Starting findAllResidents method {}", pageable);
-        return pageMapper.toResponseDto(residentRepository.findAll(pageable));
+        log.info(StringConstants.Log.STARTING_METHOD, "findAllResidents");
+        var result = pageMapper.toResponseDto(residentRepository.findAll(pageable));
+        log.info(StringConstants.Log.ENDING_METHOD, "findAllResidents");
+        return result;
     }
 
     @Override
     public ResidentDto findResidentById(UUID id) {
-        log.info("Starting findResidentById method {}", id);
-        return residentMapper.toDto(residentRepository.findById(id).orElseThrow(ResidentNotFoundException::new));
+        log.info(StringConstants.Log.Resident.FINDING_RESIDENT, id);
+        var result = residentMapper.toDto(residentRepository.findById(id).orElseThrow(ResidentNotFoundException::new));
+        log.info(StringConstants.Log.ENDING_METHOD, "findResidentById");
+        return result;
     }
 
     @Override
     public ResidentDto createResident(ResidentDto resident) {
-        log.info("Starting createResident method {}", resident);
+        log.info(StringConstants.Log.Resident.CREATING_RESIDENT, resident.name());
         Resident savedResident = residentRepository.save(residentMapper.toEntity(resident));
-        return residentMapper.toDto(savedResident);
+        var result = residentMapper.toDto(savedResident);
+        log.info(StringConstants.Log.ENDING_METHOD, "createResident");
+        return result;
     }
 
     @Override
     public ResidentDto updateResident(ResidentDto resident) {
-        log.info("Starting updateResident method {}", resident.id());
+        log.info(StringConstants.Log.Resident.UPDATING_RESIDENT, resident.id());
         Resident entity = residentRepository.findById(resident.id()).orElseThrow(ResidentNotFoundException::new);
         residentMapper.merge(resident, entity);
-        return residentMapper.toDto(residentRepository.save(entity));
+        var result = residentMapper.toDto(residentRepository.save(entity));
+        log.info(StringConstants.Log.ENDING_METHOD, "updateResident");
+        return result;
     }
 
     @Override
     public void deleteResident(UUID id) {
-        log.info("Starting deleteResident method {}", id);
+        log.info(StringConstants.Log.Resident.DELETING_RESIDENT, id);
         ResidentDto resident = findResidentById(id);
         residentRepository.deleteById(resident.id());
+        log.info(StringConstants.Log.ENDING_METHOD, "deleteResident");
     }
 }

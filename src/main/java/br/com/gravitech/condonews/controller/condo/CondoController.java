@@ -9,12 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin("*")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(value = "/v1/condo", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CondoController implements CondoApi {
 

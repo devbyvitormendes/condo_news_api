@@ -1,4 +1,7 @@
 package br.com.gravitech.condonews.dto;
 
-public record DashboardDto() {
-}
+import java.util.List;
+
+public record DashboardDto(
+    List<DashboardItemDto> items
+) {}

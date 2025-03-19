@@ -1,5 +1,6 @@
 package br.com.gravitech.condonews.exception.condo;
 
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,6 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CondoNotFoundException extends RuntimeException {
 
     public CondoNotFoundException() {
-        super("Condomínio não encontrado.");
+        super(StringConstants.Exception.CONDO_NOT_FOUND);
     }
 }

@@ -1,6 +1,7 @@
 package br.com.gravitech.condonews.service.impl;
 
 import br.com.gravitech.condonews.domain.User;
+import br.com.gravitech.condonews.domain.utils.StringConstants;
 import br.com.gravitech.condonews.dto.UserDto;
 import br.com.gravitech.condonews.dto.page.PageResponseDto;
 import br.com.gravitech.condonews.exception.user.UserNotFoundException;
@@ -27,41 +28,52 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResponseDto findAllUsers(Pageable pageable) {
-        log.info("Starting findAllUsers method {}", pageable);
-        return pageMapper.toResponseDto(userRepository.findAll(pageable));
+        log.info(StringConstants.Log.STARTING_METHOD, "findAllUsers");
+        var result = pageMapper.toResponseDto(userRepository.findAll(pageable));
+        log.info(StringConstants.Log.ENDING_METHOD, "findAllUsers");
+        return result;
     }
 
     @Override
     public UserDto findUserById(UUID id) {
-        log.info("Starting findUserById method {}", id);
-        return userMapper.toDto(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+        log.info(StringConstants.Log.User.FINDING_USER, id);
+        var result = userMapper.toDto(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+        log.info(StringConstants.Log.ENDING_METHOD, "findUserById");
+        return result;
     }
 
     @Override
     public User findByUsername(String username) {
-        log.info("Starting findByUsername method {}", username);
-        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+        log.info(StringConstants.Log.User.FINDING_USER, username);
+        var result = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+        log.info(StringConstants.Log.ENDING_METHOD, "findByUsername");
+        return result;
     }
 
     @Override
     public UserDto createUser(UserDto user) {
-        log.info("Starting createUser method {}", user);
+        log.info(StringConstants.Log.User.CREATING_USER, user.username());
         User savedUser = userRepository.save(userMapper.toEntity(user));
-        return userMapper.toDto(savedUser);
+        var result = userMapper.toDto(savedUser);
+        log.info(StringConstants.Log.ENDING_METHOD, "createUser");
+        return result;
     }
 
     @Override
     public UserDto updateUser(UserDto user) {
-        log.info("Starting updateUser method {}", user);
+        log.info(StringConstants.Log.User.UPDATING_USER, user.id());
         User entity = userRepository.findById(user.id()).orElseThrow(UserNotFoundException::new);
         userMapper.merge(user, entity);
-        return userMapper.toDto(userRepository.save(entity));
+        var result = userMapper.toDto(userRepository.save(entity));
+        log.info(StringConstants.Log.ENDING_METHOD, "updateUser");
+        return result;
     }
 
     @Override
     public void deleteUser(UUID id) {
-        log.info("Starting deleteUser method {}", id);
+        log.info(StringConstants.Log.User.DELETING_USER, id);
         UserDto user = findUserById(id);
         userRepository.deleteById(user.id());
+        log.info(StringConstants.Log.ENDING_METHOD, "deleteUser");
     }
 }

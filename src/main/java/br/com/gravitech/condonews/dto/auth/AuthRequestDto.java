@@ -1,3 +1,10 @@
 package br.com.gravitech.condonews.dto.auth;
 
-public record AuthRequestDto(String username, String password) {}
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthRequestDto(
+        @NotBlank(message = "Username is required")
+        String username,
+        @NotBlank(message = "Password is required")
+        String password
+) {}

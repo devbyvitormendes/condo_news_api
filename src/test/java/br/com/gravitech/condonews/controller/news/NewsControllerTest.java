@@ -50,13 +50,13 @@ class NewsControllerTest {
         );
 
         pageable = PageRequest.of(0, 10);
-        pageResponseDto = new PageResponseDto();
-        pageResponseDto.setContent(List.of(newsDto));
-        pageResponseDto.setTotalElements(1);
-        pageResponseDto.setTotalPages(1);
-        pageResponseDto.setNumber(0);
-        pageResponseDto.setSize(10);
-        pageResponseDto.setLast(true);
+        pageResponseDto = new PageResponseDto(
+            List.of(newsDto),
+            0,
+            10,
+            1,
+            1
+        );
     }
 
     @Test
@@ -67,9 +67,9 @@ class NewsControllerTest {
         PageResponseDto result = newsController.getNews(pageable);
 
         assertNotNull(result);
-        assertEquals(1, result.getTotalPages());
-        assertEquals(1, result.getTotalElements());
-        assertEquals(1, result.getContent().size());
+        assertEquals(1, result.totalPages());
+        assertEquals(1, result.totalElements());
+        assertEquals(1, result.content().size());
         verify(newsService).findAllNews(pageable);
     }
 
@@ -94,8 +94,8 @@ class NewsControllerTest {
         PageResponseDto result = newsController.getBreakingNews(pageable);
 
         assertNotNull(result);
-        assertEquals(1, result.getTotalPages());
-        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.totalPages());
+        assertEquals(1, result.totalElements());
         verify(newsService).findAllBreakingNews(pageable);
     }
 
